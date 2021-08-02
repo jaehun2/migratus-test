@@ -1,5 +1,13 @@
 (ns migration
-  (:require [migratus.core :as migratus]))
+  (:require [migratus.core :as migratus]
+            [hikari-cp.core :as hk]))
+
+(def datasource-options {:adapter       "mysql8"
+                         :username      "root"
+                         :password      "0000"
+                         :server-name   "localhost"
+                         :port-number   3306
+                         :database-name "migratus_test"})
 
 (def config
   {:store                :database
@@ -11,14 +19,16 @@
    :init-in-transaction? false
 
    :migration-table-name "migratus_migrations"
+
+   ; hikari-cp 사용시
+   ;:db {:datasource (hk/make-datasource datasource-options)}
+
    :db                   {:classname   "com.mysql.cj.jdbc.Driver"
                           :subprotocol "mysql"
                           :subname     "//localhost:3306/migratus_test"
                           :user        "root"
-                          :password    "0000"}})
-
-;initialize the database using the 'init.sql' script
-;(migratus/init config)
+                          :password    "0000"}
+   })
 
 (defn migrate-up!
   "실행되지 않은 모든 마이그레이션을 실행"
