@@ -2,10 +2,11 @@
   (:require [migration :as mg]
             [util.datetime :as util]))
 
-;(util/now-filename-str)
-
+; 전체 migration
 ;(mg/migrate-up!)
 ;(mg/rollback!)
+
+; 특정 migration만 실행하기
 ;(mg/migrate-up-ids 20111206154000)
 ;(mg/migrate-down-ids 20111206154000)
 ;(mg/migrate-up-ids 20111206154000 20210729174220)
